@@ -7,7 +7,7 @@ public class Launcher {
 
         List<Command> listCmd = Arrays.asList(new Quit(), new Fibo(), new Freq());
 
-        Boolean state = Boolean.TRUE;
+        Boolean state = true;
         while (state) {
             String nextline = shell.nextLine();
 
