@@ -1,41 +1,28 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class Launcher {
-
-    static Collection<Command> commands = Arrays.asList(new Fibo(), new Freq(), new Quit());
-
     public static void main(String[] args) {
-        System.out.println("Welcome");
+        System.out.println("Bienvenue");
+        Scanner shell = new Scanner(System.in);
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        List<Command> listCmd = Arrays.asList(new Quit(), new Fibo(), new Freq());
 
-            while (scanner.hasNext()) {
+        Boolean state = Boolean.TRUE;
+        while (state) {
+            String nextline = shell.nextLine();
 
-                final String commandString = scanner.nextLine();
-
-                try {
-                    commands.stream()
-                            .filter(command -> command.name().equals(commandString))
-                            .findAny()
-                            .orElseThrow(() -> new Exception("Unknown command"))
-                            .run(scanner);
-                }
-                catch (Exception e) {
-                    System.err.println(e.getMessage());
+            for (int i = 0; i < listCmd.size(); i++) {
+                if (listCmd.get(i).name().equals(nextline)) {
+                    state = listCmd.get(i).run(shell);
+                    break;
+                } else if (i == listCmd.size() - 1) {
+                    System.out.println("Unknown command");
                 }
             }
 
-        } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            if (state == Boolean.FALSE) {
+                break;
+            }
         }
     }
-
-
 }
