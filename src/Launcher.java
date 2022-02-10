@@ -1,36 +1,41 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.nio.file.*;
-import java.nio.file.Files.*;
-import static java.lang.Integer.parseInt;
-
-import java.io.IOException;
-import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Launcher {
-    static List<Command> commands = List.of(
-            new Quit(),
-            new Fibo(),
-            new Freq()
-    );
+
+    static Collection<Command> commands = Arrays.asList(new Fibo(), new Freq(), new Quit());
 
     public static void main(String[] args) {
-        System.out.println("Veuillez entrer votre commande :");
-        Scanner scan = new Scanner(System.in);
+        System.out.println("Welcome");
 
-        scan = new Scanner(System.in);
-        String comm = scan.nextLine();
-        while (!comm.equals("quit")) {
-            for (Command c : commands)
-            {
-                if (c.name().equals(comm) && !c.run(scan))
-                    return;
+        try (Scanner scanner = new Scanner(System.in)) {
+
+            while (scanner.hasNext()) {
+
+                final String commandString = scanner.nextLine();
+
+                try {
+                    commands.stream()
+                            .filter(command -> command.name().equals(commandString))
+                            .findAny()
+                            .orElseThrow(() -> new Exception("Unknown command"))
+                            .run(scanner);
+                }
+                catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
-            System.out.println("Veuillez entrer votre commande :");
-            comm = scan.nextLine();
+
+        } catch (Exception e) {
+            System.err.println("Error : " + e.getMessage());
         }
+    }
 
 
-}}
+}
