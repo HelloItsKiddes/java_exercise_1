@@ -20,8 +20,11 @@ public class Launcher {
                 }
             }
 
-            if (state == Boolean.FALSE) {
+            if (state == false) {
                 break;
+            }
+            if(nextline.equals("quit")){
+                return;
             }
         }
     }
