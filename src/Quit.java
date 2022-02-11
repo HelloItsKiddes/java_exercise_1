@@ -8,6 +8,6 @@ public class Quit implements Command{
 
     @Override
     public boolean run(Scanner sc) {
-        return true;
+        return false;
     }
 }
