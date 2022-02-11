@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Freq implements Command{
+public class Freq implements Command {
     @Override
     public String name() {
         return "freq";
@@ -21,19 +21,19 @@ public class Freq implements Command{
             String thisLine = Files.readString(fichier);
 
             thisLine = thisLine.replaceAll("\\p{Punct}", "");
-            thisLine = thisLine.replaceAll("( +)"," ").trim();
+            thisLine = thisLine.replaceAll("( +)", " ").trim();
             thisLine = thisLine.toLowerCase();
             Scanner scanner = new Scanner(thisLine);
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 thisLine = scanner.nextLine();
                 String[] tab = thisLine.split(" ");
                 Map<String, Long> result = Arrays.stream(tab).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
                 Map<String, Long> finalMap = new LinkedHashMap<>();
-                result.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).forEachOrdered(e->finalMap.put(e.getKey(), e.getValue()));
+                result.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
                 int size = finalMap.size();
                 List<String> aled = new ArrayList(finalMap.keySet());
-                for(int i =0; i<size; i++){
-                    if(i<3){
+                for (int i = 0; i < size; i++) {
+                    if (i < 3) {
                         System.out.print(aled.get(i) + " ");
                     }
                 }
