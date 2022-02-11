@@ -9,6 +9,7 @@ public class Predict implements Command{
 
     @Override
     public boolean run(Scanner sc) {
-        return false;
+        System.out.println("the internet tend to using lorem ipsum is that a search for lorem ipsum is that a search for lorem");
+        return true;
     }
 }
