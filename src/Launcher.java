@@ -5,7 +5,7 @@ public class Launcher {
         System.out.println("Bienvenue");
         Scanner shell = new Scanner(System.in);
 
-        List<Command> listCmd = Arrays.asList(new Quit(), new Fibo(), new Freq());
+        List<Command> listCmd = Arrays.asList(new Quit(), new Fibo(), new Freq(),new Predict());
 
         boolean state = true;
         while (state) {
