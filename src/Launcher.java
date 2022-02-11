@@ -23,9 +23,7 @@ public class Launcher {
             if (!state) {
                 break;
             }
-            if(nextline.equals("quit")){
-                return;
-            }
+
         }
     }
 }
